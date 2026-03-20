@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPY Enrollment Guide · MSU</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --maroon: #6B1F1F;
+            --maroon-mid: #8B3030;
+            --maroon-light: #F5E8E8;
+            --gold: #C9A84C;
+            --gold-light: #FBF6E9;
+            --cream: #FAF8F4;
+            --cream-dark: #EDE8DF;
+            --white: #FFFFFF;
+            --text: #1A1A1A;
+            --text-mid: #4A4A4A;
+            --text-muted: #7A7A7A;
+            --success: #1A5C3A;
+            --success-bg: #E6F4ED;
+            --warning: #92400E;
+            --warning-bg: #FEF3C7;
+            --danger: #8B1A1A;
+            --danger-bg: #FEE2E2;
+            --info: #1E3A8A;
+            --info-bg: #EFF6FF;
+            --border: #E2DDD5;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(107, 31, 31, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: var(--maroon);
+            color: white;
+            padding: 18px 28px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .msu-badge {
+            width: 42px;
+            height: 42px;
+            background: var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--maroon);
+            flex-shrink: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .header-text h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+
+        .header-text p {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 18px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .tab-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .tab-btn.active {
+            color: var(--maroon);
+            background: var(--cream);
+            font-weight: 700;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 18px 64px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ── WIZARD ── */
+        .wizard-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 22px;
+            align-items: start;
+        }
+
+        @media (max-width: 680px) {
+            .wizard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .wizard-sidebar {
+                display: none;
+            }
+        }
+
+        .wizard-sidebar {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: sticky;
+            top: 96px;
+        }
+
+        .sidebar-header {
+            background: var(--maroon-light);
+            padding: 13px 16px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--maroon);
+        }
+
+        .sidebar-step {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-step:hover {
+            background: var(--cream);
+        }
+
+        .sidebar-step.active {
+            background: var(--gold-light);
+            border-left-color: var(--gold);
+        }
+
+        .sidebar-step.done .step-num {
+            background: var(--success);
+            color: white;
+        }
+
+        .sidebar-step.done .step-label {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .step-num {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--cream-dark);
+            color: var(--text-mid);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .sidebar-step.active .step-num {
+            background: var(--gold);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--text-mid);
+        }
+
+        .sidebar-step.active .step-label {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .sidebar-progress {
+            padding: 11px 14px;
+            border-top: 1px solid var(--border);
+            background: var(--cream);
+        }
+
+        .progress-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-wrap {
+            height: 5px;
+            background: var(--cream-dark);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* Step Cards */
+        .step-card {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            animation: fadeUp 0.25s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-card-header {
+            padding: 22px 26px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .step-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--maroon);
+            background: var(--maroon-light);
+            padding: 3px 9px;
+            border-radius: 20px;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .step-card-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 8px;
+            line-height: 1.25;
+        }
+
+        .step-card-header p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-top: 7px;
+            line-height: 1.65;
+        }
+
+        .step-complete-btn {
+            background: var(--cream);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 15px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            color: var(--text-mid);
+            flex-shrink: 0;
+        }
+
+        .step-complete-btn:hover {
+            background: var(--success-bg);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .step-complete-btn.done {
+            background: var(--success-bg);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .step-card-body {
+            padding: 20px 26px;
+        }
+
+        .action-list {
+            list-style: none;
+        }
+
+        .action-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .action-item:last-child {
+            border-bottom: none;
+        }
+
+        .action-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .action-text strong {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .action-text span {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .alert {
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12.5px;
+            line-height: 1.6;
+            display: flex;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .alert-icon {
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .alert-warning {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .alert-danger {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .alert-info {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .alert-success {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 26px;
+            border-top: 1px solid var(--border);
+            background: var(--cream);
+        }
+
+        .nav-btn {
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn-prev {
+            background: white;
+            border: 1.5px solid var(--border);
+            color: var(--text-mid);
+        }
+
+        .nav-btn-prev:hover:not(:disabled) {
+            border-color: var(--maroon);
+            color: var(--maroon);
+        }
+
+        .nav-btn-prev:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn-next {
+            background: var(--maroon);
+            color: white;
+        }
+
+        .nav-btn-next:hover {
+            background: var(--maroon-mid);
+        }
+
+        .mobile-step-indicator {
+            display: none;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            color: var(--text-mid);
+        }
+
+        @media (max-width: 680px) {
+            .mobile-step-indicator {
+                display: block;
+            }
+        }
+
+        /* ── PLANNER ── */
+        .planner-summary {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-stat {
+            text-align: center;
+        }
+
+        .summary-stat .num {
+            font-family: 'Fraunces', serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--maroon);
+            line-height: 1;
+        }
+
+        .summary-stat .label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .summary-divider {
+            width: 1px;
+            height: 44px;
+            background: var(--border);
+        }
+
+        .summary-progress {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .summary-progress-label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-mid);
+            margin-bottom: 7px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .big-progress-wrap {
+            height: 9px;
+            background: var(--cream-dark);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .big-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--maroon), var(--gold));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .sets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 740px) {
+            .sets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .set-card {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .set-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .set-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .set-a .set-label {
+            color: #1A5C3A;
+        }
+
+        .set-b .set-label {
+            color: #1E3A8A;
+        }
+
+        .set-c .set-label {
+            color: #6B1F1F;
+        }
+
+        .set-a .set-header {
+            background: #F0FBF5;
+        }
+
+        .set-b .set-header {
+            background: #EFF6FF;
+        }
+
+        .set-c .set-header {
+            background: var(--maroon-light);
+        }
+
+        .set-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .set-header p {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .set-courses {
+            padding: 4px 0;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 9px 16px;
+            border-bottom: 1px solid var(--cream-dark);
+            transition: background 0.15s;
+        }
+
+        .course-item:last-child {
+            border-bottom: none;
+        }
+
+        .course-item:hover {
+            background: var(--cream);
+        }
+
+        .course-item.locked {
+            opacity: 0.45;
+        }
+
+        .course-checkbox {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--maroon);
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-code {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .course-name {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.35;
+            margin-top: 1px;
+        }
+
+        .course-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .tag {
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.2px;
+        }
+
+        .tag-fall-only {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .tag-prereq {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .tag-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .tag-ready {
+            background: #E6F4ED;
+            color: #1A5C3A;
+        }
+
+        .tag-locked {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .rec-header {
+            padding: 14px 20px;
+            background: var(--gold-light);
+            border-bottom: 1px solid #E8D9A0;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .rec-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .rec-body {
+            padding: 12px 20px;
+        }
+
+        .rec-item {
+            display: flex;
+            gap: 11px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--cream-dark);
+            align-items: flex-start;
+        }
+
+        .rec-item:last-child {
+            border-bottom: none;
+        }
+
+        .rec-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .rec-text {
+            font-size: 12.5px;
+            line-height: 1.55;
+            color: var(--text-mid);
+        }
+
+        .rec-text strong {
+            color: var(--text);
+        }
+
+        .empty-rec {
+            text-align: center;
+            padding: 22px;
+            color: var(--text-muted);
+            font-size: 13.5px;
+        }
+
+        /* Contact chip */
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--maroon-light);
+            color: var(--maroon);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 20px;
+            text-decoration: none;
+            margin-top: 4px;
+        }
+
+        .contact-chip:hover {
+            background: var(--maroon);
+            color: white;
+        }
+
+        /* ── CREDIT LOAD CALCULATOR ── */
+        .calc-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        @media (max-width: 680px) {
+            .calc-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-card {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .calc-card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--maroon-light);
+        }
+
+        .calc-card-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--maroon);
+        }
+
+        .calc-card-header p {
+            font-size: 12px;
+            color: var(--maroon);
+            opacity: 0.7;
+            margin-top: 3px;
+        }
+
+        .calc-body {
+            padding: 20px;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 8px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .radio-option:hover {
+            border-color: var(--maroon);
+            background: var(--maroon-light);
+        }
+
+        .radio-option input {
+            accent-color: var(--maroon);
+        }
+
+        .radio-option.selected {
+            border-color: var(--maroon);
+            background: var(--maroon-light);
+            font-weight: 600;
+        }
+
+        .hour-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hour-slider {
+            flex: 1;
+            accent-color: var(--maroon);
+            height: 4px;
+            cursor: pointer;
+        }
+
+        .hour-display {
+            font-family: 'Fraunces', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--maroon);
+            min-width: 48px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .hour-sublabel {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Result panel */
+        .result-panel {
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeUp 0.25s ease;
+        }
+
+        .result-verdict {
+            padding: 22px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .verdict-icon {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .verdict-title {
+            font-family: 'Fraunces', serif;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .verdict-sub {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .verdict-ok {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .verdict-warn {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .verdict-alert {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .verdict-info {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .result-details {
+            padding: 0 24px 20px;
+            background: white;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--cream-dark);
+            font-size: 13px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row .label {
+            color: var(--text-mid);
+            font-weight: 500;
+        }
+
+        .detail-row .value {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .detail-row .value.cost {
+            color: var(--danger);
+        }
+
+        .detail-row .value.free {
+            color: var(--success);
+        }
+
+        .approval-chain {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            padding: 14px 24px;
+            background: var(--cream);
+            border-top: 1px solid var(--border);
+        }
+
+        .chain-node {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 13px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        .chain-node.active {
+            background: var(--maroon);
+            border-color: var(--maroon);
+            color: white;
+        }
+
+        .chain-arrow {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .chain-label {
+            width: 100%;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* Policy reference table */
+        .policy-table-wrap {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .policy-table-header {
+            padding: 13px 18px;
+            background: var(--gold-light);
+            border-bottom: 1px solid #E8D9A0;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--warning);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .policy-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .policy-table th {
+            background: var(--cream);
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            padding: 9px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .policy-table td {
+            padding: 10px 16px;
+            font-size: 12.5px;
+            border-bottom: 1px solid var(--cream-dark);
+            vertical-align: middle;
+        }
+
+        .policy-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .policy-table tr:hover td {
+            background: var(--cream);
+        }
+
+        .policy-table .hl {
+            font-weight: 700;
+            color: var(--maroon);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 2px 9px;
+            border-radius: 20px;
+            font-size: 10.5px;
+            font-weight: 700;
+        }
+
+        .pill-green {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .pill-yellow {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .pill-red {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-top">
+            <div class="msu-badge">EPY</div>
+            <div class="header-text">
+                <h1>Educational Psychology Enrollment Guide</h1>
+                <p>Mississippi State University · Summer &amp; Fall 2026 Registration</p>
+            </div>
+        </div>
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('wizard')" id="tab-wizard">
+                <span>📋</span> Enrollment Wizard
+            </button>
+            <button class="tab-btn" onclick="switchTab('planner')" id="tab-planner">
+                <span>🗂</span> Course Planner
+            </button>
+            <button class="tab-btn" onclick="switchTab('loadcalc')" id="tab-loadcalc">
+                <span>⚖️</span> Credit Load
+            </button>
+        </nav>
+    </header>
+
+    <main class="main">
+
+        <!-- ── WIZARD TAB ── -->
+        <div class="tab-panel active" id="panel-wizard">
+            <div class="mobile-step-indicator">
+                Step <strong id="mobile-step-num">1</strong> of 6 —
+                <span id="mobile-step-name">Canvas Portal Access</span>
+            </div>
+            <div class="wizard-layout">
+                <aside class="wizard-sidebar">
+                    <div class="sidebar-header">Registration Checklist</div>
+                    <div id="sidebar-steps"></div>
+                    <div class="sidebar-progress">
+                        <div class="progress-label">
+                            <span>Completed</span>
+                            <span id="progress-text">0 / 6</span>
+                        </div>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill" id="wizard-progress-fill" style="width:0%"></div>
+                        </div>
+                    </div>
+                </aside>
+                <div id="wizard-content"></div>
+            </div>
+        </div>
+
+        <!-- ── PLANNER TAB ── -->
+        <div class="tab-panel" id="panel-planner">
+            <div class="planner-summary">
+                <div class="summary-stat">
+                    <div class="num" id="completed-count">0</div>
+                    <div class="label">Completed</div>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-stat">
+                    <div class="num" id="remaining-count">15</div>
+                    <div class="label">Remaining</div>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-stat">
+                    <div class="num" id="warnings-count">0</div>
+                    <div class="label">Warnings</div>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-progress">
+                    <div class="summary-progress-label">
+                        <span>Core Course Progress</span>
+                        <span id="pct-text">0%</span>
+                    </div>
+                    <div class="big-progress-wrap">
+                        <div class="big-progress-fill" id="big-progress-fill" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sets-grid" id="sets-grid"></div>
+
+            <div class="recommendations">
+                <div class="rec-header">
+                    <span style="font-size:19px">💡</span>
+                    <h3>Smart Recommendations</h3>
+                </div>
+                <div class="rec-body" id="rec-body">
+                    <p class="empty-rec">Mark courses as completed above to see personalized recommendations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CREDIT LOAD TAB ── -->
+        <div class="tab-panel" id="panel-loadcalc">
+
+            <div class="calc-layout">
+                <!-- Left: inputs -->
+                <div class="calc-card">
+                    <div class="calc-card-header">
+                        <h2>Credit Load Calculator</h2>
+                        <p>AOP 12.22 · Effective Fall 2025</p>
+                    </div>
+                    <div class="calc-body">
+
+                        <div class="field-group">
+                            <label class="field-label">Academic Standing</label>
+                            <div class="radio-group" id="standing-group">
+                                <label class="radio-option" onclick="setStanding('probation')">
+                                    <input type="radio" name="standing" value="probation"> Probation
+                                </label>
+                                <label class="radio-option" onclick="setStanding('good')">
+                                    <input type="radio" name="standing" value="good" checked> Good Standing
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Session Type</label>
+                            <div class="radio-group" id="session-group">
+                                <label class="radio-option" onclick="setSession('regular')">
+                                    <input type="radio" name="session" value="regular" checked> Regular Semester (Fall /
+                                    Spring)
+                                </label>
+                                <label class="radio-option" onclick="setSession('summer5')">
+                                    <input type="radio" name="session" value="summer5"> Summer 5-Week Session
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field-group" id="gpa-group" style="display:none">
+                            <label class="field-label">Cumulative GPA (Summer only)</label>
+                            <div class="radio-group" id="gpa-radio-group">
+                                <label class="radio-option" onclick="setGPA('below3')">
+                                    <input type="radio" name="gpa" value="below3" checked> Below 3.0
+                                </label>
+                                <label class="radio-option" onclick="setGPA('3to4')">
+                                    <input type="radio" name="gpa" value="3to4"> 3.0 – 4.0
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Planned Credit Hours</label>
+                            <div class="hour-input-wrap">
+                                <input type="range" class="hour-slider" id="hour-slider" min="1" max="24" value="15"
+                                    oninput="updateHours(this.value)">
+                                <div>
+                                    <div class="hour-display" id="hour-display">15</div>
+                                    <div class="hour-sublabel">hrs</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right: result -->
+                <div id="result-area"></div>
+            </div>
+
+            <!-- Policy reference table -->
+            <div class="policy-table-wrap">
+                <div class="policy-table-header">📋 AOP 12.22 — Full Reference Table</div>
+                <table class="policy-table">
+                    <thead>
+                        <tr>
+                            <th>Standing</th>
+                            <th>Hours</th>
+                            <th>Cost Over 16</th>
+                            <th>Approval Required</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Probation</td>
+                            <td class="hl">≤ 16 hrs</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td><span class="pill pill-green">Allowed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Good Standing</td>
+                            <td class="hl">≤ 19 hrs</td>
+                            <td>$450/hr over 16</td>
+                            <td>None</td>
+                            <td><span class="pill pill-green">Allowed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Good Standing</td>
+                            <td class="hl">20 – 21 hrs</td>
+                            <td>$450/hr over 16</td>
+                            <td>Advisor → Dept → Dean</td>
+                            <td><span class="pill pill-yellow">Approval Needed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Good Standing</td>
+                            <td class="hl">22+ hrs</td>
+                            <td>$450/hr over 16</td>
+                            <td>Advisor → Dept → Dean → Provost</td>
+                            <td><span class="pill pill-red">Multi-Level Approval</span></td>
+                        </tr>
+                        <tr>
+                            <td>Any (Summer 5-wk)</td>
+                            <td class="hl">≤ 2 courses</td>
+                            <td>Standard</td>
+                            <td>None</td>
+                            <td><span class="pill pill-green">Allowed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Good Standing, GPA 3.0–4.0 (Summer 5-wk)</td>
+                            <td class="hl">Up to 3 courses</td>
+                            <td>Standard</td>
+                            <td>Required approvals</td>
+                            <td><span class="pill pill-yellow">Approval Needed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // ── DATA ──────────────────────────────────────────────────────────────────────
+
+        const STEPS = [
+            {
+                id: 'canvas', label: 'Canvas Portal Access',
+                badge: 'Step 1', title: 'Log In to the EPY Canvas Portal',
+                desc: 'All EPY advising flows through the Canvas course named <strong>"EPY Undergrad Info Portal."</strong> This is your central hub for slides, quizzes, and schedule submission.',
+                actions: [
+                    { icon: '🔗', bg: '#EFF6FF', title: 'Log in to Canvas', detail: 'Go to canvas.msstate.edu and locate the course "EPY Undergrad Info Portal."' },
+                    { icon: '📂', bg: '#F0FBF5', title: 'Navigate to Module 1', detail: 'Module 1 contains the group advising handout and video you must complete.' },
+                    { icon: '🚫', bg: '#FEF3C7', title: 'Clear Any Account Holds First', detail: 'You cannot register if there are ANY holds on your Banner account. Check now.' },
+                ],
+                alerts: [
+                    { type: 'warning', icon: '⚠️', text: 'Account holds will block registration entirely. Log into myState Banner → Student Information → View Holds and resolve all holds before your registration window.' }
+                ]
+            },
+            {
+                id: 'module1', label: 'View Advising Materials',
+                badge: 'Step 2 — Module 1', title: 'View the Advising Slides & Video',
+                desc: 'Completing Module 1 is required to unlock Module 2. Watch the advising video by Dr. Parra-Martinez in full — Canvas tracks your completion.',
+                actions: [
+                    { icon: '📄', bg: '#F0FBF5', title: 'Read the Group Advising Handout', detail: 'Review program requirements, course sequence, and policies. This document is your reference all semester.' },
+                    { icon: '▶️', bg: '#EFF6FF', title: 'Watch the Group Advising Video', detail: 'Watching the full video unlocks Module 2. Don\'t skip ahead — Canvas tracks completion.' },
+                ],
+                alerts: [
+                    { type: 'info', icon: 'ℹ️', text: 'Module 2 (the quiz) is hidden until you complete Module 1. You must view the video through Canvas — watching on another platform will not count.' }
+                ]
+            },
+            {
+                id: 'quiz', label: 'Pass the Self-Check Quiz',
+                badge: 'Step 3 — Module 2', title: 'Take the Module 2 Quiz',
+                desc: 'After watching the advising video, take the self-check quiz in Module 2. You need at least <strong>4 out of 5</strong> to unlock Module 3. Unlimited attempts are allowed.',
+                actions: [
+                    { icon: '📝', bg: '#EFF6FF', title: 'Complete the Quiz in Module 2', detail: 'Unlimited attempts. Score 4/5 or better to unlock Module 3 and proceed to schedule submission.' },
+                    { icon: '🔓', bg: '#F0FBF5', title: 'Unlock Module 3 Automatically', detail: 'Once you hit 4/5, Module 3 (Schedule Submission) becomes available immediately.' },
+                ],
+                alerts: [
+                    { type: 'success', icon: '✅', text: 'Unlimited attempts are allowed. Review the slides if you miss anything — there\'s no penalty for retrying.' }
+                ]
+            },
+            {
+                id: 'schedule', label: 'Submit Trial Schedule',
+                badge: 'Step 4 — Module 3', title: 'Submit Your Trial Schedule',
+                desc: 'In Module 3, submit your proposed course schedule for Summer/Fall 2026 along with required information. Use the <strong>Course Planner tab</strong> in this app to build a well-sequenced schedule first.',
+                actions: [
+                    { icon: '🗓', bg: '#F0FBF5', title: 'Build Your Trial Schedule', detail: 'Use Banner\'s Master Class Schedule to find open sections. Plan alternates in case top choices are full.' },
+                    { icon: '🪪', bg: '#EFF6FF', title: 'Gather Required Info', detail: 'You will need: your 9-digit MSU ID, expected graduation term (Summer or Fall 2026), and your chosen emphasis area.' },
+                    { icon: '📤', bg: '#FEF3C7', title: 'Submit via Module 3 on Canvas', detail: 'Your advisor will review and mark it "Complete" if no changes are needed, then release you for registration.' },
+                ],
+                alerts: [
+                    { type: 'warning', icon: '⚠️', text: 'Your advisor reserves the right to reschedule any individual meeting if you arrive without a prepared trial schedule. Build it before you reach out.' }
+                ]
+            },
+            {
+                id: 'advisor', label: 'Advisor Review & Release',
+                badge: 'Step 5', title: 'Wait for Advisor Review & Release',
+                desc: 'Your advisor will review your Canvas submission. If everything looks good they mark it <strong>Complete</strong> and release you for registration in myState Banner. Individual questions can be resolved via email first.',
+                actions: [
+                    { icon: '👤', bg: '#EFF6FF', title: 'Find Your Advisor in Banner', detail: 'If your advisor is not listed, contact Dr. Dinetta Karriem (dkarriem@colled.msstate.edu) to be assigned one.' },
+                    { icon: '📧', bg: '#F0FBF5', title: 'Email Simple Questions First', detail: 'Many issues can be resolved quickly by email. Only schedule a meeting for complex planning questions.' },
+                    { icon: '⏳', bg: '#FEF3C7', title: 'Watch for Completion Status', detail: 'You will see your Canvas submission marked "Complete" once your advisor approves it.' },
+                ],
+                alerts: [
+                    { type: 'info', icon: 'ℹ️', text: 'Need a campus override for an online (Campus 5) EPY/COE course? Contact Dr. Dinetta Karriem. For Campus 5 courses offered by another department (e.g., PSY), contact that department\'s instructor directly.' }
+                ]
+            },
+            {
+                id: 'register', label: 'Register in Banner',
+                badge: 'Step 6 — Final Step', title: 'Register for Classes — Act Fast!',
+                desc: 'After your advisor releases you, the Office of the Registrar will email you a specific date and time to begin registration. <strong>Register the moment your window opens — seats fill fast.</strong>',
+                actions: [
+                    { icon: '📬', bg: '#F0FBF5', title: 'Watch for the Registrar Email', detail: 'You\'ll receive an email with your exact registration date and time. Add it to your calendar immediately.' },
+                    { icon: '🚀', bg: '#E6F4ED', title: 'Register Immediately When Your Window Opens', detail: 'Log into myState Banner as soon as your time arrives. Do NOT wait — popular sections fill within hours.' },
+                    { icon: '📋', bg: '#EFF6FF', title: 'Use the EPY Waitlist If Needed', detail: 'Course full? Add yourself via: Canvas › Undergrad Info Portal › People › Groups › Waitlist.' },
+                ],
+                alerts: [
+                    { type: 'danger', icon: '🚨', text: 'Register ASAP once your window opens. Campus 5 (online) sections carry additional distance tuition & fees — confirm before enrolling.' },
+                    { type: 'warning', icon: '☀️', text: 'Summer courses are NOT guaranteed. They may be canceled for low enrollment even after you register. Always have a Fall backup plan.' }
+                ]
+            }
+        ];
+
+        const COURSES = {
+            setA: [
+                { id: 'psy1013', code: 'PSY 1013', name: 'General Psychology', prereqs: [], fallOnly: false },
+                { id: 'epy2513', code: 'EPY 2513', name: 'Human Growth and Development', prereqs: [], fallOnly: false },
+                { id: 'epy3503', code: 'EPY 3503', name: 'Principles of Educational Psychology', prereqs: [], fallOnly: false },
+                { id: 'epy3513', code: 'EPY 3513', name: 'Writing in the Behavioral Sciences', prereqs: [], fallOnly: false, critical: true, isPrereqFor: ['epy4033', 'epy4513'] },
+                { id: 'epy3543', code: 'EPY 3543', name: 'Psychology of Adolescence', prereqs: [], fallOnly: false },
+            ],
+            setB: [
+                { id: 'epy3063', code: 'EPY 3063', name: 'Psychology of Individual Differences & Exceptional Ability', prereqs: [], fallOnly: false },
+                { id: 'psy3623', code: 'PSY 3623', name: 'Social Psychology', prereqs: [], fallOnly: false },
+                { id: 'epy4073', code: 'EPY 4073', name: 'Personal and Motivational Factors in Education', prereqs: [], fallOnly: false },
+                { id: 'epy4214', code: 'EPY 4214', name: 'Educational and Psychological Statistics', prereqs: [], fallOnly: false, isPrereqFor: ['epy4513'] },
+                { id: 'epy4553', code: 'EPY 4553', name: 'Creativity/Innovation', prereqs: [], fallOnly: false },
+                { id: 'epy4683', code: 'EPY 4683', name: 'Advanced Issues in Educational Psychology', prereqs: [], fallOnly: true },
+            ],
+            setC: [
+                { id: 'epy4033', code: 'EPY 4033', name: 'Application of Learning Theories', prereqs: ['epy3513'], prereqNames: ['EPY 3513'] },
+                { id: 'epy4313', code: 'EPY 4313', name: 'Measurement and Evaluation', prereqs: [], prereqNames: [] },
+                { id: 'epy4513', code: 'EPY 4513', name: 'Research Methods', prereqs: ['epy3513', 'epy4214'], prereqNames: ['EPY 3513', 'EPY 4214'] },
+            ]
+        };
+
+        // ── STATE ──────────────────────────────────────────────────────────────────────
+        let currentStep = 0;
+        const wizardDone = new Set();
+        const completedCourses = new Set();
+
+        function allCourses() {
+            return [...COURSES.setA, ...COURSES.setB, ...COURSES.setC];
+        }
+
+        function isLocked(course) {
+            return course.prereqs && course.prereqs.some(p => !completedCourses.has(p));
+        }
+
+        // ── WIZARD ─────────────────────────────────────────────────────────────────────
+        function renderWizard() {
+            renderSidebar();
+            renderStepCard();
+            updateWizardProgress();
+        }
+
+        function renderSidebar() {
+            document.getElementById('sidebar-steps').innerHTML = STEPS.map((s, i) => `
+    <div class="sidebar-step ${i === currentStep ? 'active' : ''} ${wizardDone.has(i) ? 'done' : ''}"
+         onclick="goToStep(${i})">
+      <div class="step-num">${wizardDone.has(i) ? '✓' : i + 1}</div>
+      <div class="step-label">${s.label}</div>
+    </div>
+  `).join('');
+        }
+
+        function renderStepCard() {
+            const s = STEPS[currentStep];
+            const done = wizardDone.has(currentStep);
+
+            const alertsHTML = (s.alerts || []).map(a => `
+    <div class="alert alert-${a.type}">
+      <span class="alert-icon">${a.icon}</span>
+      <div>${a.text}</div>
+    </div>
+  `).join('');
+
+            const actionsHTML = s.actions.map(a => `
+    <li class="action-item">
+      <div class="action-icon" style="background:${a.bg}">${a.icon}</div>
+      <div class="action-text">
+        <strong>${a.title}</strong>
+        <span>${a.detail}</span>
+      </div>
+    </li>
+  `).join('');
+
+            const isLast = currentStep === STEPS.length - 1;
+
+            document.getElementById('wizard-content').innerHTML = `
+    <div class="step-card">
+      <div class="step-card-header">
+        <div>
+          <div class="step-badge">${s.badge}</div>
+          <h2>${s.title}</h2>
+          <p>${s.desc}</p>
+        </div>
+        <button class="step-complete-btn ${done ? 'done' : ''}"
+                onclick="toggleDone(${currentStep})">
+          ${done ? '✓ Done' : 'Mark Done'}
+        </button>
+      </div>
+      <div class="step-card-body">
+        <ul class="action-list">${actionsHTML}</ul>
+        ${alertsHTML}
+      </div>
+      <div class="step-nav">
+        <button class="nav-btn nav-btn-prev"
+                onclick="goToStep(${currentStep - 1})"
+                ${currentStep === 0 ? 'disabled' : ''}>← Previous</button>
+        <button class="nav-btn nav-btn-next"
+                onclick="${isLast ? "switchTab('planner')" : `goToStep(${currentStep + 1})`}">
+          ${isLast ? 'Go to Course Planner →' : 'Next Step →'}
+        </button>
+      </div>
+    </div>
+  `;
+
+            document.getElementById('mobile-step-num').textContent = currentStep + 1;
+            document.getElementById('mobile-step-name').textContent = s.label;
+        }
+
+        function goToStep(i) {
+            if (i < 0 || i >= STEPS.length) return;
+            currentStep = i;
+            renderSidebar();
+            renderStepCard();
+        }
+
+        function toggleDone(i) {
+            wizardDone.has(i) ? wizardDone.delete(i) : wizardDone.add(i);
+            renderSidebar();
+            renderStepCard();
+            updateWizardProgress();
+        }
+
+        function updateWizardProgress() {
+            const pct = Math.round((wizardDone.size / STEPS.length) * 100);
+            document.getElementById('wizard-progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = `${wizardDone.size} / ${STEPS.length}`;
+        }
+
+        // ── PLANNER ────────────────────────────────────────────────────────────────────
+        function renderPlanner() {
+            renderSets();
+            renderRecommendations();
+            updateSummary();
+        }
+
+        function renderSets() {
+            const setDefs = [
+                { key: 'setA', cls: 'set-a', label: 'Set A — Foundation', title: 'Foundation Courses', desc: 'Ideally completed in your first two years.' },
+                { key: 'setB', cls: 'set-b', label: 'Set B — Core', title: 'Core Development', desc: 'Any time, preferably after Set A.' },
+                { key: 'setC', cls: 'set-c', label: 'Set C — Capstone', title: 'Capstone Courses', desc: 'Best taken in your final two semesters.' },
+            ];
+
+            document.getElementById('sets-grid').innerHTML = setDefs.map(def => {
+                const courses = COURSES[def.key];
+                const rows = courses.map(c => {
+                    const done = completedCourses.has(c.id);
+                    const locked = isLocked(c) && !done;
+                    const tags = [];
+
+                    if (c.fallOnly) tags.push(`<span class="tag tag-fall-only">Fall Only ⚠</span>`);
+                    if (c.critical) tags.push(`<span class="tag tag-warning">Timing Critical</span>`);
+                    if (!done && locked) tags.push(`<span class="tag tag-locked">🔒 Prereqs needed</span>`);
+                    if (!done && !locked && c.prereqs && c.prereqs.length > 0) tags.push(`<span class="tag tag-ready">Prereqs met ✓</span>`);
+
+                    return `
+        <div class="course-item ${locked ? 'locked' : ''}">
+          <input type="checkbox" class="course-checkbox"
+            ${done ? 'checked' : ''}
+            ${locked ? 'disabled' : ''}
+            onchange="toggleCourse('${c.id}')">
+          <div class="course-info">
+            <div class="course-code">${c.code}</div>
+            <div class="course-name">${c.name}</div>
+            ${tags.length ? `<div class="course-tags">${tags.join('')}</div>` : ''}
+          </div>
+        </div>`;
+                }).join('');
+
+                return `
+      <div class="set-card ${def.cls}">
+        <div class="set-header">
+          <div class="set-label">${def.label}</div>
+          <h3>${def.title}</h3>
+          <p>${def.desc}</p>
+        </div>
+        <div class="set-courses">${rows}</div>
+      </div>`;
+            }).join('');
+        }
+
+        function toggleCourse(id) {
+            completedCourses.has(id) ? completedCourses.delete(id) : completedCourses.add(id);
+            renderPlanner();
+        }
+
+        function renderRecommendations() {
+            const recs = [];
+            const has3513 = completedCourses.has('epy3513');
+            const has4214 = completedCourses.has('epy4214');
+            const has4513 = completedCourses.has('epy4513');
+            const has4683 = completedCourses.has('epy4683');
+
+            if (!has3513) {
+                recs.push({
+                    icon: '⚡', bg: '#FEF3C7',
+                    text: '<strong>Take EPY 3513 early.</strong> It\'s a prerequisite for both EPY 4033 and EPY 4513 (capstones) and must be completed at least 2 semesters before graduation.'
+                });
+            }
+
+            if (!has4214 && !has4513) {
+                recs.push({
+                    icon: '📊', bg: '#EFF6FF',
+                    text: '<strong>EPY 4214 (Statistics)</strong> is a prerequisite for EPY 4513 (Research Methods). Plan to complete it before your final year.'
+                });
+            }
+
+            if (!has4683) {
+                recs.push({
+                    icon: '📅', bg: '#FEF3C7',
+                    text: '<strong>EPY 4683 is offered in Fall only.</strong> Missing the fall window means waiting a full year. Prioritize it accordingly.'
+                });
+            }
+
+            // Locked capstones
+            COURSES.setC.filter(c => isLocked(c) && !completedCourses.has(c.id)).forEach(c => {
+                const missing = c.prereqs
+                    .filter(p => !completedCourses.has(p))
+                    .map(p => { const f = allCourses().find(x => x.id === p); return f ? f.code : p; });
+                recs.push({
+                    icon: '🔒', bg: '#FEE2E2',
+                    text: `<strong>${c.code} — ${c.name}</strong> is currently locked. Still needed: ${missing.join(', ')}.`
+                });
+            });
+
+            // Ready Set B courses
+            const readyB = COURSES.setB.filter(c => !isLocked(c) && !completedCourses.has(c.id));
+            if (readyB.length > 0 && completedCourses.size > 0) {
+                recs.push({
+                    icon: '✅', bg: '#E6F4ED',
+                    text: `<strong>${readyB.length} Set B course(s) are available to take</strong> based on your current progress: ${readyB.map(c => c.code).join(', ')}.`
+                });
+            }
+
+            // Set A complete
+            if (COURSES.setA.every(c => completedCourses.has(c.id))) {
+                recs.push({
+                    icon: '🎉', bg: '#E6F4ED',
+                    text: '<strong>Set A complete!</strong> You\'ve built your foundation. Focus on Set B and start planning your 18-hour emphasis area — all hours must come from a single block.'
+                });
+            }
+
+            // Summer warning (always shown)
+            recs.push({
+                icon: '☀️', bg: '#FEF3C7',
+                text: '<strong>Planning a summer course?</strong> Summer sections are not guaranteed and may be canceled for low enrollment. Always have a Fall fallback.'
+            });
+
+            const body = document.getElementById('rec-body');
+            if (recs.length === 0) {
+                body.innerHTML = '<p class="empty-rec">Mark courses as completed above to see personalized recommendations.</p>';
+                return;
+            }
+
+            body.innerHTML = recs.map(r => `
+    <div class="rec-item">
+      <div class="rec-icon" style="background:${r.bg}">${r.icon}</div>
+      <div class="rec-text">${r.text}</div>
+    </div>
+  `).join('');
+        }
+
+        function updateSummary() {
+            const total = allCourses().length;
+            const done = completedCourses.size;
+            const remaining = total - done;
+            const pct = Math.round((done / total) * 100);
+
+            let warnings = 0;
+            if (!completedCourses.has('epy3513')) warnings++;
+            COURSES.setC.forEach(c => { if (isLocked(c) && !completedCourses.has(c.id)) warnings++; });
+
+            document.getElementById('completed-count').textContent = done;
+            document.getElementById('remaining-count').textContent = remaining;
+            document.getElementById('warnings-count').textContent = warnings;
+            document.getElementById('big-progress-fill').style.width = pct + '%';
+            document.getElementById('pct-text').textContent = pct + '%';
+        }
+
+        // ── TAB SWITCHING ──────────────────────────────────────────────────────────────
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('panel-' + tab).classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            if (tab === 'planner') renderPlanner();
+            if (tab === 'loadcalc') renderResult();
+        }
+
+        // ── CREDIT LOAD CALCULATOR ─────────────────────────────────────────────────────
+        let standing = 'good';
+        let session = 'regular';
+        let gpa = 'below3';
+        let hours = 15;
+
+        function setStanding(v) {
+            standing = v;
+            document.querySelectorAll('#standing-group .radio-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            renderResult();
+        }
+
+        function setSession(v) {
+            session = v;
+            document.querySelectorAll('#session-group .radio-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('gpa-group').style.display = (v === 'summer5') ? 'block' : 'none';
+            // Adjust slider max
+            const slider = document.getElementById('hour-slider');
+            if (v === 'summer5') { slider.max = 12; if (hours > 12) { hours = 12; slider.value = 12; document.getElementById('hour-display').textContent = 12; } }
+            else { slider.max = 24; }
+            renderResult();
+        }
+
+        function setGPA(v) {
+            gpa = v;
+            document.querySelectorAll('#gpa-radio-group .radio-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            renderResult();
+        }
+
+        function updateHours(v) {
+            hours = parseInt(v);
+            document.getElementById('hour-display').textContent = hours;
+            renderResult();
+        }
+
+        function renderResult() {
+            const area = document.getElementById('result-area');
+            if (!area) return;
+
+            let verdict, title, sub, details = [], chain = [], chainActive = [];
+
+            if (session === 'summer5') {
+                // Summer 5-week logic
+                const courses = Math.ceil(hours / 3); // rough estimate
+                if (standing === 'probation' || gpa === 'below3') {
+                    verdict = 'warn'; title = 'Max 2 Courses for Summer 5-Week';
+                    sub = 'Students on probation or with a GPA below 3.0 are limited to 2 courses in the Summer 5-week session.';
+                    details = [
+                        { label: 'Session', value: 'Summer 5-Week' },
+                        { label: 'Your Standing', value: standing === 'probation' ? 'Probation' : 'Good Standing (GPA < 3.0)' },
+                        { label: 'Max Allowed', value: '2 courses' },
+                    ];
+                } else {
+                    verdict = 'warn'; title = 'Up to 3 Courses — Approval Required';
+                    sub = 'Students in good standing with a GPA of 3.0–4.0 may take up to 3 courses in the Summer 5-week session, but required approvals must be obtained.';
+                    details = [
+                        { label: 'Session', value: 'Summer 5-Week' },
+                        { label: 'GPA', value: '3.0 – 4.0' },
+                        { label: 'Max Allowed', value: '3 courses (with approval)' },
+                    ];
+                    chain = ['Advisor', 'Department', 'Dean'];
+                    chainActive = ['Advisor', 'Department', 'Dean'];
+                }
+            } else {
+                // Regular semester logic
+                const maxFree = (standing === 'probation') ? 16 : 19;
+                const extraHours = Math.max(0, hours - 16);
+                const extraCost = extraHours * 450;
+
+                if (standing === 'probation' && hours > 16) {
+                    verdict = 'alert'; title = 'Over Probation Limit';
+                    sub = `Students on academic probation are capped at 16 credit hours. You've planned ${hours} hours — please reduce your load.`;
+                    details = [
+                        { label: 'Your Standing', value: 'Academic Probation' },
+                        { label: 'Maximum Allowed', value: '16 credit hours' },
+                        { label: 'Planned Hours', value: `${hours} hrs ⚠ over limit`, cls: 'cost' },
+                    ];
+                } else if (hours <= 16) {
+                    verdict = 'ok'; title = 'Within Standard Tuition Range';
+                    sub = `${hours} credit hours falls within the 16-hour tuition cap — no additional fees and no special approvals needed.`;
+                    details = [
+                        { label: 'Planned Hours', value: `${hours} hrs` },
+                        { label: 'Tuition Surcharge', value: 'None', cls: 'free' },
+                        { label: 'Approval Required', value: 'None', cls: 'free' },
+                    ];
+                } else if (hours <= 19 && standing === 'good') {
+                    verdict = 'info'; title = 'No Approval Needed, But Extra Cost Applies';
+                    sub = `Good-standing students can take up to 19 hours without permission, but every credit over 16 costs $450.`;
+                    details = [
+                        { label: 'Hours Over 16', value: `${extraHours} hr${extraHours > 1 ? 's' : ''}` },
+                        { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
+                        { label: 'Approval Required', value: 'None', cls: 'free' },
+                    ];
+                } else if (hours <= 21 && standing === 'good') {
+                    verdict = 'warn'; title = '3-Level Approval Required';
+                    sub = `Taking ${hours} hours requires sign-off from your Advisor, Department, and the Dean before you can register.`;
+                    details = [
+                        { label: 'Hours Over 16', value: `${extraHours} hrs` },
+                        { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
+                        { label: 'Approval Chain', value: '3 approvals needed', cls: 'cost' },
+                    ];
+                    chain = ['Advisor', 'Department', 'Dean'];
+                    chainActive = ['Advisor', 'Department', 'Dean'];
+                } else if (hours >= 22 && standing === 'good') {
+                    verdict = 'alert'; title = '4-Level Approval + Provost Sign-Off';
+                    sub = `22+ hours requires the full approval chain including the Provost. Start this process well before registration opens.`;
+                    details = [
+                        { label: 'Hours Over 16', value: `${extraHours} hrs` },
+                        { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
+                        { label: 'Approval Chain', value: '4 approvals — plan ahead!', cls: 'cost' },
+                    ];
+                    chain = ['Advisor', 'Department', 'Dean', 'Provost'];
+                    chainActive = ['Advisor', 'Department', 'Dean', 'Provost'];
+                }
+            }
+
+            const verdictIcons = { ok: '✅', warn: '⚠️', alert: '🚨', info: 'ℹ️' };
+
+            const detailsHTML = details.map(d => `
+    <div class="detail-row">
+      <span class="label">${d.label}</span>
+      <span class="value ${d.cls || ''}">${d.value}</span>
+    </div>`).join('');
+
+            const chainHTML = chain.length ? `
+    <div class="approval-chain">
+      <div class="chain-label">Approval Chain Required</div>
+      ${chain.map((node, i) => `
+        ${i > 0 ? '<span class="chain-arrow">→</span>' : ''}
+        <div class="chain-node ${chainActive.includes(node) ? 'active' : ''}">${node}</div>
+      `).join('')}
+    </div>` : '';
+
+            area.innerHTML = `
+    <div class="result-panel">
+      <div class="result-verdict verdict-${verdict}">
+        <div class="verdict-icon">${verdictIcons[verdict]}</div>
+        <div>
+          <div class="verdict-title">${title}</div>
+          <div class="verdict-sub">${sub}</div>
+        </div>
+      </div>
+      <div class="result-details">${detailsHTML}</div>
+      ${chainHTML}
+    </div>`;
+        }
+
+        // ── INIT ───────────────────────────────────────────────────────────────────────
+        renderWizard();
+    </script>
+</body>
+
+</html>
