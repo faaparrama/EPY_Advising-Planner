@@ -1238,6 +1238,10 @@
                 </div>
             </div>
 
+            <p style="margin:0 0 1rem;padding:0.75rem 1rem;background:#EFF6FF;border-left:4px solid #3B82F6;border-radius:6px;font-size:0.95rem;color:#1E3A5F;">
+                Check the box next to each course you have already taken to track your progress and see which courses you can take next.
+            </p>
+
             <div class="sets-grid" id="sets-grid"></div>
 
             <div class="recommendations">
@@ -1484,7 +1488,7 @@
             ],
             setC: [
                 { id: 'epy4033', code: 'EPY 4033', name: 'Application of Learning Theories', prereqs: ['epy3513'], prereqNames: ['EPY 3513'] },
-                { id: 'epy4313', code: 'EPY 4313', name: 'Measurement and Evaluation', prereqs: ['epy4214'], prereqNames: ['EPY 4214'] },
+                { id: 'epy4313', code: 'EPY 4313', name: 'Measurement and Evaluation', prereqs: [], recommended: ['epy4214'], recommendedNames: ['EPY 4214'] },
                 { id: 'epy4513', code: 'EPY 4513', name: 'Research Methods', prereqs: ['epy3513', 'epy4214'], prereqNames: ['EPY 3513', 'EPY 4214'] },
             ]
         };
@@ -1618,8 +1622,15 @@
 
                     if (c.fallOnly) tags.push(`<span class="tag tag-fall-only">Fall Only ⚠</span>`);
                     if (c.critical) tags.push(`<span class="tag tag-warning">Timing Critical</span>`);
-                    if (!done && locked) tags.push(`<span class="tag tag-locked">🔒 Prereqs needed</span>`);
+                    if (!done && locked) {
+                        const missing = c.prereqs.filter(p => !completedCourses.has(p)).map(p => { const f = allCourses().find(x => x.id === p); return f ? f.code : p; });
+                        tags.push(`<span class="tag tag-locked">🔒 Need: ${missing.join(', ')}</span>`);
+                    }
                     if (!done && !locked && c.prereqs && c.prereqs.length > 0) tags.push(`<span class="tag tag-ready">Prereqs met ✓</span>`);
+                    if (!done && c.recommended && c.recommended.length > 0) {
+                        const recMet = c.recommended.every(r => completedCourses.has(r));
+                        if (!recMet) tags.push(`<span class="tag tag-fall-only">Recommended: ${c.recommendedNames.join(', ')} ⚠</span>`);
+                    }
 
                     return `
         <div class="course-item ${locked ? 'locked' : ''}">
@@ -1669,7 +1680,7 @@
             if (!has4214 && !has4513) {
                 recs.push({
                     icon: '📊', bg: '#EFF6FF',
-                    text: '<strong>EPY 4214 (Statistics)</strong> is a prerequisite for EPY 4513 (Research Methods). Plan to complete it before your final year.'
+                    text: '<strong>EPY 4214 (Statistics)</strong> is a prerequisite for EPY 4513 (Research Methods) and highly recommended before EPY 4313 (Measurement and Evaluation). Plan to complete it before your final year.'
                 });
             }
 
