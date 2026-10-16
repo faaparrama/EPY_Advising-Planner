@@ -860,6 +860,20 @@
             margin-top: 3px;
         }
 
+        .policy-note {
+            padding: 10px 18px 14px;
+            font-size: 12px;
+            color: var(--text-mid);
+        }
+
+        .calc-card-header a,
+        .policy-table-header a {
+            color: inherit;
+            text-decoration: underline;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
         .calc-body {
             padding: 20px;
         }
@@ -1167,7 +1181,7 @@
             <div class="msu-badge">EPY</div>
             <div class="header-text">
                 <h1>Educational Psychology Enrollment Guide</h1>
-                <p>Mississippi State University · Summer &amp; Fall 2026 Registration</p>
+                <p>Mississippi State University · <span id="season-label">Winter 2026 &amp; Spring 2027</span> Registration</p>
             </div>
         </div>
         <nav class="tab-nav">
@@ -1263,7 +1277,7 @@
                 <div class="calc-card">
                     <div class="calc-card-header">
                         <h2>Credit Load Calculator</h2>
-                        <p>AOP 12.22 · Effective Fall 2025</p>
+                        <p>AOP 12.22 · Effective Fall 2025 · <a href="https://www.controller.msstate.edu/accountservices/tuition/starkville-campus" target="_blank" rel="noopener">Current tuition rates ↗</a></p>
                     </div>
                     <div class="calc-body">
 
@@ -1271,7 +1285,7 @@
                             <label class="field-label">Academic Standing</label>
                             <div class="radio-group" id="standing-group">
                                 <label class="radio-option" onclick="setStanding('probation')">
-                                    <input type="radio" name="standing" value="probation"> Probation
+                                    <input type="radio" name="standing" value="probation"> Not in Good Standing
                                 </label>
                                 <label class="radio-option" onclick="setStanding('good')">
                                     <input type="radio" name="standing" value="good" checked> Good Standing
@@ -1280,26 +1294,28 @@
                         </div>
 
                         <div class="field-group">
-                            <label class="field-label">Session Type</label>
+                            <label class="field-label">Term</label>
                             <div class="radio-group" id="session-group">
                                 <label class="radio-option" onclick="setSession('regular')">
-                                    <input type="radio" name="session" value="regular" checked> Regular Semester (Fall /
-                                    Spring)
+                                    <input type="radio" name="session" value="regular" checked> Fall or Spring Semester
                                 </label>
-                                <label class="radio-option" onclick="setSession('summer5')">
-                                    <input type="radio" name="session" value="summer5"> Summer 5-Week Session
+                                <label class="radio-option" onclick="setSession('summer')">
+                                    <input type="radio" name="session" value="summer"> Summer (all summer terms combined)
+                                </label>
+                                <label class="radio-option" onclick="setSession('intersession')">
+                                    <input type="radio" name="session" value="intersession"> Winter Intersession or Maymester
                                 </label>
                             </div>
                         </div>
 
-                        <div class="field-group" id="gpa-group" style="display:none">
-                            <label class="field-label">Cumulative GPA (Summer only)</label>
-                            <div class="radio-group" id="gpa-radio-group">
-                                <label class="radio-option" onclick="setGPA('below3')">
-                                    <input type="radio" name="gpa" value="below3" checked> Below 3.0
+                        <div class="field-group" id="msuhours-group" style="display:none">
+                            <label class="field-label">Credit hours completed at MSU</label>
+                            <div class="radio-group" id="msuhours-radio-group">
+                                <label class="radio-option" onclick="setMsuHours(false)">
+                                    <input type="radio" name="msuhours" value="under12" checked> Fewer than 12
                                 </label>
-                                <label class="radio-option" onclick="setGPA('3to4')">
-                                    <input type="radio" name="gpa" value="3to4"> 3.0 – 4.0
+                                <label class="radio-option" onclick="setMsuHours(true)">
+                                    <input type="radio" name="msuhours" value="12plus"> 12 or more
                                 </label>
                             </div>
                         </div>
@@ -1325,7 +1341,7 @@
 
             <!-- Policy reference table -->
             <div class="policy-table-wrap">
-                <div class="policy-table-header">📋 AOP 12.22 — Full Reference Table</div>
+                <div class="policy-table-header">📋 AOP 12.22 — Full Reference Table · <a href="https://www.controller.msstate.edu/accountservices/tuition/starkville-campus" target="_blank" rel="noopener">Starkville campus tuition (Controller's Office) ↗</a></div>
                 <table class="policy-table">
                     <thead>
                         <tr>
@@ -1338,49 +1354,51 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Probation</td>
-                            <td class="hl">≤ 16 hrs</td>
-                            <td>None</td>
-                            <td>None</td>
-                            <td><span class="pill pill-green">Allowed</span></td>
-                        </tr>
-                        <tr>
-                            <td>Good Standing</td>
+                            <td>Fall/Spring · Good Standing</td>
                             <td class="hl">≤ 19 hrs</td>
                             <td>$450/hr over 16</td>
                             <td>None</td>
                             <td><span class="pill pill-green">Allowed</span></td>
                         </tr>
                         <tr>
-                            <td>Good Standing</td>
-                            <td class="hl">20 – 21 hrs</td>
-                            <td>$450/hr over 16</td>
-                            <td>Advisor → Dept → Dean</td>
-                            <td><span class="pill pill-yellow">Approval Needed</span></td>
+                            <td>Fall/Spring · Not in Good Standing*</td>
+                            <td class="hl">≤ 16 hrs</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td><span class="pill pill-green">Allowed</span></td>
                         </tr>
                         <tr>
-                            <td>Good Standing</td>
-                            <td class="hl">22+ hrs</td>
-                            <td>$450/hr over 16</td>
-                            <td>Advisor → Dept → Dean → Provost</td>
-                            <td><span class="pill pill-red">Multi-Level Approval</span></td>
-                        </tr>
-                        <tr>
-                            <td>Any (Summer 5-wk)</td>
-                            <td class="hl">≤ 2 courses</td>
+                            <td>Summer (all terms) · Good Standing</td>
+                            <td class="hl">≤ 12 hrs</td>
                             <td>Standard</td>
                             <td>None</td>
                             <td><span class="pill pill-green">Allowed</span></td>
                         </tr>
                         <tr>
-                            <td>Good Standing, GPA 3.0–4.0 (Summer 5-wk)</td>
-                            <td class="hl">Up to 3 courses</td>
+                            <td>Summer (all terms) · Not in Good Standing</td>
+                            <td class="hl">≤ 10 hrs</td>
                             <td>Standard</td>
-                            <td>Required approvals</td>
+                            <td>None</td>
+                            <td><span class="pill pill-green">Allowed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Winter Intersession / Maymester · Good Standing + 12 MSU hrs completed</td>
+                            <td class="hl">≤ 4 hrs</td>
+                            <td>Standard</td>
+                            <td>None</td>
+                            <td><span class="pill pill-green">Allowed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Any term, above the limit</td>
+                            <td class="hl">Exception</td>
+                            <td>—</td>
+                            <td>Advisor → Department Head → Academic Dean</td>
                             <td><span class="pill pill-yellow">Approval Needed</span></td>
                         </tr>
                     </tbody>
                 </table>
+                <p class="policy-note">Limits count mini-term and full-term courses together: the equivalent contact hours in any week cannot exceed the limit.
+                    *Entering first-year students required to take remedial or learning-skills courses (IHL Policy 608) are also limited to 16 hours.</p>
             </div>
 
         </div>
@@ -1388,6 +1406,9 @@
     </main>
 
     <script>
+        // ── SEASON (edit these each advising season) ──────────────────────────────────
+        const SEASON = { label: 'Winter 2026 & Spring 2027', gradTerm: 'May 2027' };
+
         // ── DATA ──────────────────────────────────────────────────────────────────────
 
         const STEPS = [
@@ -1397,7 +1418,7 @@
                 desc: 'All EPY advising flows through the Canvas course named <strong>"EPY Undergrad Info Portal."</strong> This is your central hub for slides, quizzes, and schedule submission.',
                 actions: [
                     { icon: '🔗', bg: '#EFF6FF', title: 'Log in to Canvas', detail: 'Go to canvas.msstate.edu and locate the course "EPY Undergrad Info Portal."' },
-                    { icon: '📂', bg: '#F0FBF5', title: 'Navigate to Module 1', detail: 'Module 1 contains the group advising handout and video you must complete.' },
+                    { icon: '📂', bg: '#F0FBF5', title: 'Navigate to Module 1', detail: 'Module 1 contains the group advising video you must watch.' },
                     { icon: '🚫', bg: '#FEF3C7', title: 'Clear Any Account Holds First', detail: 'You cannot register if there are ANY holds on your Banner account. Check now.' },
                 ],
                 alerts: [
@@ -1405,11 +1426,10 @@
                 ]
             },
             {
-                id: 'module1', label: 'View Advising Materials',
-                badge: 'Step 2 — Module 1', title: 'View the Advising Slides & Video',
+                id: 'module1', label: 'Watch the Advising Video',
+                badge: 'Step 2 — Module 1', title: 'Watch the Advising Video',
                 desc: 'Completing Module 1 is required to unlock Module 2. Watch the advising video by Dr. Parra-Martinez in full — Canvas tracks your completion.',
                 actions: [
-                    { icon: '📄', bg: '#F0FBF5', title: 'Read the Group Advising Handout', detail: 'Review program requirements, course sequence, and policies. This document is your reference all semester.' },
                     { icon: '▶️', bg: '#EFF6FF', title: 'Watch the Group Advising Video', detail: 'Watching the full video unlocks Module 2. Don\'t skip ahead — Canvas tracks completion.' },
                 ],
                 alerts: [
@@ -1431,10 +1451,10 @@
             {
                 id: 'schedule', label: 'Submit Trial Schedule',
                 badge: 'Step 4 — Module 3', title: 'Submit Your Trial Schedule',
-                desc: 'In Module 3, submit your proposed course schedule for Summer/Fall 2026 along with required information. Use the <strong>Course Planner tab</strong> in this app to build a well-sequenced schedule first.',
+                desc: `In Module 3, submit your proposed course schedule for ${SEASON.label} along with required information. Use the <strong>Course Planner tab</strong> in this app to build a well-sequenced schedule first.`,
                 actions: [
                     { icon: '🗓', bg: '#F0FBF5', title: 'Build Your Trial Schedule', detail: 'Use Banner\'s Master Class Schedule to find open sections. Plan alternates in case top choices are full.' },
-                    { icon: '🪪', bg: '#EFF6FF', title: 'Gather Required Info', detail: 'You will need: your 9-digit MSU ID, expected graduation term (Summer or Fall 2026), and your chosen emphasis area.' },
+                    { icon: '🪪', bg: '#EFF6FF', title: 'Gather Required Info', detail: `You will need: your 9-digit MSU ID, whether you are graduating in ${SEASON.gradTerm}, and your chosen emphasis area.` },
                     { icon: '📤', bg: '#FEF3C7', title: 'Submit via Module 3 on Canvas', detail: 'Your advisor will review and mark it "Complete" if no changes are needed, then release you for registration.' },
                 ],
                 alerts: [
@@ -1673,7 +1693,7 @@
             if (!has3513) {
                 recs.push({
                     icon: '⚡', bg: '#FEF3C7',
-                    text: '<strong>Take EPY 3513 early.</strong> It\'s a prerequisite for both EPY 4033 and EPY 4513 (capstones) and must be completed at least 2 semesters before graduation.'
+                    text: '<strong>Take EPY 3513 early.</strong> It\'s a prerequisite for both EPY 4033 and EPY 4513 (capstones) so take it no later than three semesters before graduation (graduating Fall 2028? Take it by Spring 2027).'
                 });
             }
 
@@ -1766,11 +1786,18 @@
             if (tab === 'loadcalc') renderResult();
         }
 
-        // ── CREDIT LOAD CALCULATOR ─────────────────────────────────────────────────────
+        // ── CREDIT LOAD CALCULATOR (AOP 12.22) ─────────────────────────────────────────
         let standing = 'good';
         let session = 'regular';
-        let gpa = 'below3';
+        let msuHours12 = false;
         let hours = 15;
+
+        const TERM = {
+            regular: { name: 'Fall/Spring', max: 24, limit: { good: 19, probation: 16 } },
+            summer: { name: 'Summer (all terms)', max: 15, limit: { good: 12, probation: 10 } },
+            intersession: { name: 'Winter Intersession/Maymester', max: 8, limit: { good: 4, probation: 0 } },
+        };
+        const EXCEPTION_CHAIN = ['Advisor', 'Department Head', 'Academic Dean'];
 
         function setStanding(v) {
             standing = v;
@@ -1783,17 +1810,16 @@
             session = v;
             document.querySelectorAll('#session-group .radio-option').forEach(el => el.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
-            document.getElementById('gpa-group').style.display = (v === 'summer5') ? 'block' : 'none';
-            // Adjust slider max
+            document.getElementById('msuhours-group').style.display = (v === 'intersession') ? 'block' : 'none';
             const slider = document.getElementById('hour-slider');
-            if (v === 'summer5') { slider.max = 12; if (hours > 12) { hours = 12; slider.value = 12; document.getElementById('hour-display').textContent = 12; } }
-            else { slider.max = 24; }
+            slider.max = TERM[v].max;
+            if (hours > TERM[v].max) { hours = TERM[v].max; slider.value = hours; document.getElementById('hour-display').textContent = hours; }
             renderResult();
         }
 
-        function setGPA(v) {
-            gpa = v;
-            document.querySelectorAll('#gpa-radio-group .radio-option').forEach(el => el.classList.remove('selected'));
+        function setMsuHours(v) {
+            msuHours12 = v;
+            document.querySelectorAll('#msuhours-radio-group .radio-option').forEach(el => el.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
             renderResult();
         }
@@ -1809,80 +1835,44 @@
             if (!area) return;
 
             let verdict, title, sub, details = [], chain = [], chainActive = [];
+            const term = TERM[session];
+            const limit = term.limit[standing];
+            const standingLabel = standing === 'good' ? 'Good Standing' : 'Not in Good Standing';
+            const extraHours = session === 'regular' ? Math.max(0, hours - 16) : 0;
+            const extraCost = extraHours * 450;
 
-            if (session === 'summer5') {
-                // Summer 5-week logic
-                const courses = Math.ceil(hours / 3); // rough estimate
-                if (standing === 'probation' || gpa === 'below3') {
-                    verdict = 'warn'; title = 'Max 2 Courses for Summer 5-Week';
-                    sub = 'Students on probation or with a GPA below 3.0 are limited to 2 courses in the Summer 5-week session.';
-                    details = [
-                        { label: 'Session', value: 'Summer 5-Week' },
-                        { label: 'Your Standing', value: standing === 'probation' ? 'Probation' : 'Good Standing (GPA < 3.0)' },
-                        { label: 'Max Allowed', value: '2 courses' },
-                    ];
-                } else {
-                    verdict = 'warn'; title = 'Up to 3 Courses — Approval Required';
-                    sub = 'Students in good standing with a GPA of 3.0–4.0 may take up to 3 courses in the Summer 5-week session, but required approvals must be obtained.';
-                    details = [
-                        { label: 'Session', value: 'Summer 5-Week' },
-                        { label: 'GPA', value: '3.0 – 4.0' },
-                        { label: 'Max Allowed', value: '3 courses (with approval)' },
-                    ];
-                    chain = ['Advisor', 'Department', 'Dean'];
-                    chainActive = ['Advisor', 'Department', 'Dean'];
-                }
+            if (session === 'intersession' && (standing !== 'good' || !msuHours12)) {
+                verdict = 'alert'; title = 'Not Eligible for Intersession';
+                sub = 'Winter Intersession and Maymester require good academic standing and at least 12 credit hours completed at MSU.';
+                details = [
+                    { label: 'Your Standing', value: standingLabel, cls: standing === 'good' ? 'free' : 'cost' },
+                    { label: 'MSU Hours Completed', value: msuHours12 ? '12 or more' : 'Fewer than 12', cls: msuHours12 ? 'free' : 'cost' },
+                ];
+            } else if (hours > limit) {
+                verdict = 'warn'; title = 'Above the Limit — Exception Required';
+                sub = `The ${term.name} limit for ${standingLabel.toLowerCase()} is ${limit} credit hours. Taking ${hours} needs an exception approved by your Advisor, Department Head, and Academic Dean before you register.`;
+                details = [
+                    { label: 'Limit', value: `${limit} hrs` },
+                    { label: 'Planned Hours', value: `${hours} hrs ⚠ over limit`, cls: 'cost' },
+                ];
+                if (extraHours) details.push({ label: 'Extra Cost (over 16)', value: `$${extraCost.toLocaleString()}`, cls: 'cost' });
+                chain = EXCEPTION_CHAIN; chainActive = EXCEPTION_CHAIN;
+            } else if (extraHours) {
+                verdict = 'info'; title = 'No Approval Needed, But Extra Cost Applies';
+                sub = `Up to ${limit} hours is allowed without permission, but tuition covers only 16 — each hour above 16 costs extra.`;
+                details = [
+                    { label: 'Hours Over 16', value: `${extraHours} hr${extraHours > 1 ? 's' : ''}` },
+                    { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
+                    { label: 'Approval Required', value: 'None', cls: 'free' },
+                ];
             } else {
-                // Regular semester logic
-                const maxFree = (standing === 'probation') ? 16 : 19;
-                const extraHours = Math.max(0, hours - 16);
-                const extraCost = extraHours * 450;
-
-                if (standing === 'probation' && hours > 16) {
-                    verdict = 'alert'; title = 'Over Probation Limit';
-                    sub = `Students on academic probation are capped at 16 credit hours. You've planned ${hours} hours — please reduce your load.`;
-                    details = [
-                        { label: 'Your Standing', value: 'Academic Probation' },
-                        { label: 'Maximum Allowed', value: '16 credit hours' },
-                        { label: 'Planned Hours', value: `${hours} hrs ⚠ over limit`, cls: 'cost' },
-                    ];
-                } else if (hours <= 16) {
-                    verdict = 'ok'; title = 'Within Standard Tuition Range';
-                    sub = `${hours} credit hours falls within the 16-hour tuition cap — no additional fees and no special approvals needed.`;
-                    details = [
-                        { label: 'Planned Hours', value: `${hours} hrs` },
-                        { label: 'Tuition Surcharge', value: 'None', cls: 'free' },
-                        { label: 'Approval Required', value: 'None', cls: 'free' },
-                    ];
-                } else if (hours <= 19 && standing === 'good') {
-                    verdict = 'info'; title = 'No Approval Needed, But Extra Cost Applies';
-                    sub = `Good-standing students can take up to 19 hours without permission, but every credit over 16 costs $450.`;
-                    details = [
-                        { label: 'Hours Over 16', value: `${extraHours} hr${extraHours > 1 ? 's' : ''}` },
-                        { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
-                        { label: 'Approval Required', value: 'None', cls: 'free' },
-                    ];
-                } else if (hours <= 21 && standing === 'good') {
-                    verdict = 'warn'; title = '3-Level Approval Required';
-                    sub = `Taking ${hours} hours requires sign-off from your Advisor, Department, and the Dean before you can register.`;
-                    details = [
-                        { label: 'Hours Over 16', value: `${extraHours} hrs` },
-                        { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
-                        { label: 'Approval Chain', value: '3 approvals needed', cls: 'cost' },
-                    ];
-                    chain = ['Advisor', 'Department', 'Dean'];
-                    chainActive = ['Advisor', 'Department', 'Dean'];
-                } else if (hours >= 22 && standing === 'good') {
-                    verdict = 'alert'; title = '4-Level Approval + Provost Sign-Off';
-                    sub = `22+ hours requires the full approval chain including the Provost. Start this process well before registration opens.`;
-                    details = [
-                        { label: 'Hours Over 16', value: `${extraHours} hrs` },
-                        { label: 'Extra Cost', value: `$${extraCost.toLocaleString()}`, cls: 'cost' },
-                        { label: 'Approval Chain', value: '4 approvals — plan ahead!', cls: 'cost' },
-                    ];
-                    chain = ['Advisor', 'Department', 'Dean', 'Provost'];
-                    chainActive = ['Advisor', 'Department', 'Dean', 'Provost'];
-                }
+                verdict = 'ok'; title = 'Within the Limit';
+                sub = `${hours} credit hours is within the ${term.name} limit of ${limit} — no approval needed.`;
+                details = [
+                    { label: 'Planned Hours', value: `${hours} hrs` },
+                    { label: 'Limit', value: `${limit} hrs` },
+                    { label: 'Approval Required', value: 'None', cls: 'free' },
+                ];
             }
 
             const verdictIcons = { ok: '✅', warn: '⚠️', alert: '🚨', info: 'ℹ️' };
@@ -1917,6 +1907,7 @@
         }
 
         // ── INIT ───────────────────────────────────────────────────────────────────────
+        document.getElementById('season-label').textContent = SEASON.label;
         renderWizard();
     </script>
 </body>
